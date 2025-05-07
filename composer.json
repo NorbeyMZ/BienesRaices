@@ -1,0 +1,19 @@
+{
+    "name": "norbey/bienesraices",
+    "description": "creandon un proyecto con POO",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "./classes"
+        }
+    },
+    "authors": [
+        {
+            "name": "Norbey",
+            "email": "norbeymz2000@gmail.com"
+        }
+    ],
+    "require": {
+        "intervention/image": "^3.10"
+    }
+}
