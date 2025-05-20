@@ -3,7 +3,7 @@
 
     require '../includes/app.php';
     estaAutenticado();
-
+    //importar la clase Propiedad y Vendedor
     use App\Propiedad;
     use App\vendedor;
 
@@ -15,7 +15,7 @@
     $resultado = $_GET['resultado'] ?? null;
 
     if($_SERVER['REQUEST_METHOD']=== 'POST'){
-
+        //validar el id
         $id= $_POST['id'];
         $id=filter_var($id, FILTER_VALIDATE_INT); 
         if($id){
@@ -34,22 +34,16 @@
             }
         }
     }
-
     //incluye template
-    
     incluirTemplate('header');
 ?>
-
     <main class="contenedor seccion">
         <h1>Administrador de Bienes Raices</h1>
-
-        <?php if( intval($resultado) === 1): ?>
-            <p class="alerta exicto">Creado Corectamente</p>
-        <?php elseif(intval($resultado) === 2): ?>
-            <p class="alerta exicto">Actualizado Correctamente</p>
-        <?php elseif(intval($resultado) === 3): ?>
-            <p class="alerta exicto">Eliminado Correctamente</p>
-        <?php endif; ?>
+        <?php
+            $mensaje = mostrarNotificacion(intval($resultado));
+            if($mensaje){ ?>
+            <p class="alerta exito"><?php echo s($mensaje) ?></p>
+        <?php } ?>
 
         <a href="/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
         <a href="/admin/vendedores/crear.php" class="boton boton-amarillo">Nueva Vendedor</a>
@@ -86,7 +80,6 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
-
         <h2>Vendedores</h2>
         <table class="propiedades ">
             <thead>
@@ -95,7 +88,6 @@
                     <th>Nombre</th>
                     <th>Telefono</th>
                     <th>Acciones</th>
-                  
                 </tr>
             </thead>
             <tbody > <!--4.mostrar los resultados  -->
@@ -116,11 +108,7 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
-
     </main>
-
 <?php
-  
    incluirTemplate('footer');
-
 ?>

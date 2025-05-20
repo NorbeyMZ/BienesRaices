@@ -61,4 +61,8 @@ class Propiedad extends ActiveRecord{
         return self::$errores;
     }
 
+    
+
+
+
 }

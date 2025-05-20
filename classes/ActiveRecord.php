@@ -2,22 +2,18 @@
 
 namespace App;
 class ActiveRecord{
-    
     //base de datos
-     
     protected static $db;
     protected static $columnasDB = [];
     protected static $tabla = '';
 
     //errores
     protected static $errores = []; 
-    
 
     //definir la conexion a la base de datos
     public static function setDB($dataBase){
         self::$db = $dataBase;
     }
-
 
     public function guardar() {
         if(!is_null($this->id)) {
@@ -28,8 +24,8 @@ class ActiveRecord{
             $this->crear();
         }
     }
+
     public function crear(){
-        
         //sanitizar los datos
         $atributos= $this->sanitizarDatos();
         
@@ -132,7 +128,6 @@ class ActiveRecord{
         }
     }
 
-
     //listar todas las $tabla "
     public static function all(){
         $query = "SELECT * FROM ". static::$tabla;
@@ -140,6 +135,17 @@ class ActiveRecord{
         return $resultado;
       
     }
+
+     //optiene determinados registros de la base de datos"
+     public static function get($cantidad){
+        $query = "SELECT * FROM ". static::$tabla . " LIMIT " . $cantidad;
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+      
+    }
+
+
+
     //busca una propiedad por su id
     public static function find($id) {
         $query = "SELECT * FROM " . static::$tabla . "  WHERE id = ${id}";
@@ -148,7 +154,6 @@ class ActiveRecord{
 
         return array_shift( $resultado ) ;
     }
-
 
     public static function consultarSQL($query){
         //consultar la base de datos    
@@ -166,6 +171,7 @@ class ActiveRecord{
         return $array;
 
     }
+    
     protected static function crearObjeto($registro){
        $objeto = new static;
 
